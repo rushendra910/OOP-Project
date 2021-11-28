@@ -22,5 +22,18 @@ class Operations_implementation implements Operations
         String query = "SELECT * FROM " + tableName;
         return query;
     }
+    //for search part
+    public String searchById(String tableName, int id) {
+        String query = "SELECT * FROM " + tableName + " WHERE id = " + id;
+        return query;
+    }
+    public String searchByFirstName(String tableName, String firstName) {
+        String query = "SELECT * FROM " + tableName + " WHERE first LIKE '%" + firstName + "%'";
+        return query;
+    }
+    public String searchByAge(String tableName, int age) {
+        String query = "SELECT * FROM " + tableName + " WHERE age = " + age;
+        return query;
+    }
 }
 

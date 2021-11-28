@@ -7,12 +7,17 @@ public class Main {
     static final String USER = "root"; // Database Username
     static final String PASS = "password"; // Database Password
 
+    public static void clr(){
+        System.out.print("\033[H\033[2J");  
+        System.out.flush();   
+    }
+    
     public static void main(String[] args) {
         Operations_implementation op1 = new Operations_implementation();
         try {
 
             Connection con = DriverManager.getConnection(DB_URL, USER, PASS);  // connection
-            Statement stmt = con.createStatement();  // statement
+            Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);  // statement
             String sql; // sql query
 
             switch (args[0]) { // flags
@@ -24,6 +29,11 @@ public class Main {
                 System.out.println(" -p: print all the columns");
                 System.out.println(" -i: insert data into the columns");
                 System.out.println(" -q: quit");
+                //for search part
+                System.out.println("-si: search by id");
+                System.out.println("-sf: search by first name");
+                System.out.println("-sa: search by age");
+                //end of search part
                 break;
             }
 
@@ -77,10 +87,92 @@ public class Main {
             case "-q": {
                 break;
             }
+//search part
+            case "-si": {
+                int id = Integer.parseInt(args[1]);
+                ResultSet rs = stmt.executeQuery(op1.searchById("registration",id));
+                pagination(rs);
+                rs.close();
+                con.close();
+                break;
+            }
+
+            case "-sf": {
+                String firstName = args[1];
+                ResultSet rs = stmt.executeQuery(op1.searchByFirstName("registration",firstName));
+                pagination(rs);
+                rs.close();
+                con.close();
+                break;
+            }
+
+            case "-sa": {
+                int age = Integer.parseInt(args[1]);
+                ResultSet rs = stmt.executeQuery(op1.searchByAge("registration",age));
+                pagination(rs);
+                rs.close();
+                con.close();
+                break;
+            }
+//end of search part
+            default: {
+                System.out.println("Invalid input");
+                break;
+            }
 
             }
             con.close();
         } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public static void pagination(ResultSet rs){
+        try{
+
+            rs.last();
+                int total_records = rs.getRow();
+                int total_pages = total_records/5;
+                if(total_records%5!=0)
+                     total_pages++;
+                int page_no = 1;
+                rs.first();
+            
+                while(page_no<=total_pages){
+                    
+                    if(page_no>=1){
+                        System.out.println("Page "+page_no);
+                        int i=0;
+
+                        while(i<5 && rs.next()){
+                            System.out.println("ID = " + rs.getInt(1) + ", First = " + rs.getString(2) + ", Last = "
+                            + rs.getString(3) + ", Age = " + rs.getInt(4));
+                            i++;
+                        }
+                        
+                        String inp = System.console().readLine();
+
+                        if(inp.equals("+")){
+                            clr();
+                            page_no++;
+                        }
+
+                        else if(inp.equals("-")){
+                            clr(); 
+                            page_no--;
+                            rs.absolute(rs.getRow()-5);
+                        }
+
+                        else if(inp.equals("q"))
+                            break;
+                        else
+                            System.out.println("Invalid input");
+                    }
+
+                }
+
+        }
+        catch(Exception e){
             System.out.println(e);
         }
     }
