@@ -7,6 +7,7 @@ public class Main {
     static final String USER = "root"; // Database Username
     static final String PASS = "password"; // Database Password
 
+    
     public static void clr(){
         System.out.print("\033[H\033[2J");  
         System.out.flush();   
