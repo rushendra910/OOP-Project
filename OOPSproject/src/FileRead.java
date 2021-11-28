@@ -4,7 +4,6 @@ This is just a prototype of the final Table class
 Need to create table class with proper columns
 */
 
-
 package OOPSproject.src;
 
 import java.io.*;
