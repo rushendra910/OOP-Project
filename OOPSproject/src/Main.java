@@ -1,11 +1,12 @@
 package OOPSproject.src;
 
 import java.sql.*;
+import java.util.*;
 
 public class Main {
     static final String DB_URL = "jdbc:mysql://localhost:3306/OOP_project"; // Database URL
     static final String USER = "root"; // Database Username
-    static final String PASS = "Avinash@14"; // Database Password
+    static final String PASS = "AmalNidhi.1"; // Database Password
 
     public static void clr(){
         System.out.print("\033[H\033[2J");  
@@ -69,15 +70,16 @@ public class Main {
             }
 
             case "-i": {
-                sql = "INSERT INTO Registration VALUES (100, 'Zara', 'Ali', 18)";
-                stmt.executeUpdate(sql);
-                sql = "INSERT INTO Registration VALUES (101, 'Mahnaz', 'Fatma', 25)";
-                stmt.executeUpdate(sql);
-                sql = "INSERT INTO Registration VALUES (102, 'Zaid', 'Khan', 30)";
-                stmt.executeUpdate(sql);
-                sql = "INSERT INTO Registration VALUES(103, 'Sumit', 'Mittal', 28)";
-                stmt.executeUpdate(sql);
+                List<Table> t=Table.CSVToTable(args[1]);
+                ListIterator<Table> i=t.listIterator();
+                Statement st=con.createStatement();
+                while(i.hasNext()){
+                    String[] tokens=i.next().getValues();
+                    String query="INSERT into PATIENTS values("+tokens[0]+","+tokens[1]+","+tokens[2]+","+tokens[3]+","+tokens[4]+")";
+                    st.executeQuery(query);
+                }
                 System.out.println("Data inserted successfully");
+                st.close();
                 break;
             }
 

@@ -1,24 +1,17 @@
-/*
-NOTE: 
-This is just a prototype of the final Table class
-Need to create table class with proper columns
-*/
-
 package OOPSproject.src;
 
 import java.io.*;
 import java.util.*;
 
 class Table{
-    //Column Names(We can change these as required)
     private int id;
     private String name;
     private String severity;
-    private Boolean recovered;
-    private Boolean vaccinated;
+    private boolean recovered;
+    private boolean vaccinated;
 
     //Table Constructor
-    public Table(int id,String name,String severity,Boolean recovered,Boolean vaccinated){
+    public Table(int id,String name,String severity,boolean recovered,boolean vaccinated){
         this.id=id;
         this.name=name;
         this.severity=severity;
@@ -26,15 +19,27 @@ class Table{
         this.vaccinated=vaccinated;
     }
 
+    //Utility get functions
+    public int getId(){return id;}
+    public String getName(){return name;}
+    public String getSeverity(){return severity;}
+    public boolean getRecovered(){return recovered;}
+    public boolean getVaccinated(){return vaccinated;}
+
     //toString() utility function
     @Override
     public String toString(){
-        String str="Id: "+this.id+"\nName: "+this.name+"\nSeverity: "+this.severity+"\nRecovered: "+this.recovered+"\nVaccinated: "+this.vaccinated;
+        String str=getId()+","+getName()+","+getSeverity()+","+this.getRecovered()+","+this.getVaccinated();
         return str;
     }
 
+    public String[] getValues(){
+        String[] tokens=toString().split(",");
+        return tokens;
+    }
+
     //Method to convert any CSV file to a Table array
-    public List<Table> CSVToTable(String filePath){
+    public static List<Table> CSVToTable(String filePath){
         List<Table> t=new ArrayList<>();
         try{
             Scanner sin=new Scanner(new BufferedReader(new FileReader(filePath)));

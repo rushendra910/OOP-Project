@@ -2,6 +2,7 @@ package OOPSproject.src;
 
 import java.sql.*;
 import java.io.*;
+import java.util.*;
 
 
 public class update {
@@ -21,13 +22,13 @@ public class update {
 
         ///////////////////////////////////////////////
 
-        BufferedReader buffReader = new BufferedReader(new FileReader("src/input_rushendra.csv"));
+        List<Table> t=Table.CSVToTable("src/input_rushendra.csv");
 
-        String line;
+        ListIterator<Table> i=t.listIterator();
 
-        while((line=buffReader.readLine())!=null){
-            
-            String[] tokens = line.split(",");
+        while(i.hasNext()){
+
+            String[] tokens = i.next().getValues();
 
             query = "SELECT * FROM PATIENTS WHERE ID = " + tokens[0];
 
@@ -45,7 +46,6 @@ public class update {
 
         }
 
-        buffReader.close();
         s.close();
 
         ///////////////////////////////////////////////
