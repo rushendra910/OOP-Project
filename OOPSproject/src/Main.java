@@ -6,8 +6,10 @@ import java.util.*;
 public class Main {
     static final String DB_URL = "jdbc:mysql://localhost:3306/OOP_project"; // Database URL
     static final String USER = "root"; // Database Username
-    static final String PASS = "AmalNidhi.1"; // Database Password
 
+//////////////////////////////////Change PassWord
+    static final String PASS = "///////"; // Database Password
+////////////////////////////////////////////////////////////
     public static void clr(){
         System.out.print("\033[H\033[2J");  
         System.out.flush();   
