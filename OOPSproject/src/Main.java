@@ -2,13 +2,14 @@ package OOPSproject.src;
 
 import java.sql.*;
 import java.util.*;
+import OOPSproject.src.Operations;
 
 public class Main {
     static final String DB_URL = "jdbc:mysql://localhost:3306/OOP_project"; // Database URL
     static final String USER = "root"; // Database Username
 
 //////////////////////////////////Change PassWord
-    static final String PASS = "///////"; // Database Password
+    static final String PASS = "password"; // Database Password
 ////////////////////////////////////////////////////////////
     public static void clr(){
         System.out.print("\033[H\033[2J");  
