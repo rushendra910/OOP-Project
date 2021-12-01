@@ -26,31 +26,31 @@ class Operations_implementation implements Operations {
     // for search part
     @Override
     public String searchById(String tableName, int id) {
-        String query = "SELECT * FROM " + tableName + " WHERE reg_no = "+id+";";
+        String query = "SELECT * FROM " + tableName + " WHERE reg_no = " + id;
         return query;
     }
 
     @Override
     public String searchByFirstName(String tableName, String firstName) {
-        String query = "SELECT * FROM " + tableName + " WHERE NAME LIKE \"" + firstName + "\" ORDER BY reg_no ASC;";
+        String query = "SELECT * FROM " + tableName + " WHERE NAME LIKE \"" + firstName + "\" ORDER BY reg_no ASC";
         return query;
     }
 
     @Override
     public String searchBySeverity(String tableName, String severity) {
-        String query = "SELECT * FROM " + tableName + " WHERE severity =\"" + severity + "\";";
+        String query = "SELECT * FROM " + tableName + " WHERE severity =\"" + severity + "\" ORDER BY reg_no ASC";
         return query;
     }
 
     @Override
     public String searchByRecovery(String tableName, Boolean recovered) {
-        String query = "SELECT * FROM " + tableName + " WHERE recovered =" + recovered + ";";
+        String query = "SELECT * FROM " + tableName + " WHERE recovered =" + recovered + " ORDER BY reg_no ASC";
         return query;
     }
 
     @Override
     public String searchByVaccination(String tableName, Boolean vaccinated) {
-        String query = "SELECT * FROM " + tableName + " WHERE vaccinated =" + vaccinated + ";";
+        String query = "SELECT * FROM " + tableName + " WHERE vaccinated =" + vaccinated + " ORDER BY reg_no ASC";
         return query;
     }
 

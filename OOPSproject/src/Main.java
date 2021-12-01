@@ -166,11 +166,13 @@ public class Main {
 
             rs.last();
             int total_records = rs.getRow();
+            rs.first();
+            rs.previous();
+
             int total_pages = total_records / 5;
             if (total_records % 5 != 0)
                 total_pages++;
             int page_no = 1;
-            rs.first();
 
             System.out.printf("REG_NO  NAME:%-10s SEVERITY RECOVERED VACCINATED \n","");
             while (page_no <= total_pages) {
