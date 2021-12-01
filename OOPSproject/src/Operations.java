@@ -1,48 +1,67 @@
 package OOPSproject.src;
-interface Operations
-{
-    public String createTable(String tableName, String[] columnNames, String[] columnTypes);
+
+interface Operations {
     public String printTable(String tableName);
+
+    public String searchById(String tableName, int id);
+
+    public String searchByFirstName(String tableName, String firstName);
+
+    public String searchBySeverity(String tableName, String severity);
+
+    public String searchByRecovery(String tableName, Boolean recovered);
+
+    public String searchByVaccination(String tableName, Boolean vaccinated);
+
+    public String deleteById(String tableName, int id);
 }
-class Operations_implementation implements Operations
-{
+
+class Operations_implementation implements Operations {
     @Override
-    public String createTable(String tableName, String[] columnNames, String[] columnTypes) {
-        String query = "CREATE TABLE " + tableName + "(";
-        for (int i = 0; i < columnNames.length; i++) {
-            query += columnNames[i] + " " + columnTypes[i];
-            if (i != columnNames.length - 1) {
-                query += ",";
-            }
-        }
-        query += ")";
-        return query;
-    }
     public String printTable(String tableName) {
         String query = "SELECT * FROM " + tableName;
         return query;
     }
-    //for search part
+
+    // for search part
+    @Override
     public String searchById(String tableName, int id) {
-        String query = "SELECT * FROM " + tableName + " WHERE id = " + id;
+        String query = "SELECT * FROM " + tableName + " WHERE reg_no = "+id+";";
         return query;
     }
+
+    @Override
     public String searchByFirstName(String tableName, String firstName) {
-        String query = "SELECT * FROM " + tableName + " WHERE first LIKE '%" + firstName + "%'";
+        String query = "SELECT * FROM " + tableName + " WHERE NAME LIKE \"" + firstName + "\" ORDER BY reg_no ASC;";
         return query;
     }
-    public String searchByAge(String tableName, int age) {
-        String query = "SELECT * FROM " + tableName + " WHERE age = " + age;
+
+    @Override
+    public String searchBySeverity(String tableName, String severity) {
+        String query = "SELECT * FROM " + tableName + " WHERE severity =\"" + severity + "\";";
         return query;
     }
-//for deleting part
-    public String  deleteById(String tableName, int id) {
+
+    @Override
+    public String searchByRecovery(String tableName, Boolean recovered) {
+        String query = "SELECT * FROM " + tableName + " WHERE recovered =" + recovered + ";";
+        return query;
+    }
+
+    @Override
+    public String searchByVaccination(String tableName, Boolean vaccinated) {
+        String query = "SELECT * FROM " + tableName + " WHERE vaccinated =" + vaccinated + ";";
+        return query;
+    }
+
+    // for deleting part
+    @Override
+    public String deleteById(String tableName, int id) {
         String query = "DELETE * FROM " + tableName + "WHERE ID =" + id;
-        if (id > 0)           
-                System.out.println("One User is Successfully Deleted");           
-            else
-                System.out.println("ERROR OCCURED :(");
+        if (id > 0)
+            System.out.println("One User is Successfully Deleted");
+        else
+            System.out.println("ERROR OCCURED :(");
         return query;
     }
 }
-
