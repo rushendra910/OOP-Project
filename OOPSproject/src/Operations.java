@@ -35,5 +35,14 @@ class Operations_implementation implements Operations
         String query = "SELECT * FROM " + tableName + " WHERE age = " + age;
         return query;
     }
+//for deleting part
+    public String  deleteById(String tableName, int id) {
+        String query = "DELETE * FROM " + tableName + "WHERE ID =" + id;
+        if (id > 0)           
+                System.out.println("One User is Successfully Deleted");           
+            else
+                System.out.println("ERROR OCCURED :(");
+        return query;
+    }
 }
 
