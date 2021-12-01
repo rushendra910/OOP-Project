@@ -5,9 +5,8 @@ import java.sql.*;
 public class Main {
     static final String DB_URL = "jdbc:mysql://localhost:3306/OOP_project"; // Database URL
     static final String USER = "root"; // Database Username
-    static final String PASS = "password"; // Database Password
+    static final String PASS = "Avinash@14"; // Database Password
 
-    
     public static void clr(){
         System.out.print("\033[H\033[2J");  
         System.out.flush();   
@@ -62,10 +61,7 @@ public class Main {
             case "-p": {
 
                 ResultSet rs = stmt.executeQuery(op1.printTable("REGISTRATION"));
-                while (rs.next()) {
-                    System.out.println("ID = " + rs.getInt(1) + ", First = " + rs.getString(2) + ", Last = "
-                            + rs.getString(3) + ", Age = " + rs.getInt(4));
-                }
+                pagination(rs);
                 rs.close();
                 con.close();
 
@@ -131,7 +127,7 @@ public class Main {
     public static void pagination(ResultSet rs){
         try{
 
-            rs.last();
+                rs.last();
                 int total_records = rs.getRow();
                 int total_pages = total_records/5;
                 if(total_records%5!=0)
