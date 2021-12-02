@@ -7,6 +7,10 @@ interface Operations {
 
     public String searchByFirstName(String tableName, String firstName);
 
+    public String searchByAgeLessThan(String tableName, int age);
+
+    public String searchByAgeGreaterThan(String tableName, int age);
+
     public String searchBySeverity(String tableName, String severity);
 
     public String searchByRecovery(String tableName, Boolean recovered);
@@ -16,6 +20,8 @@ interface Operations {
     public String countRecovered(String tableName);
 
     public String countVaccinated(String tableName);
+
+    public String statisticsOfSeverity(String tableName);
 
     public String deleteById(String tableName, int id);
 }
@@ -37,6 +43,18 @@ class Operations_implementation implements Operations {
     @Override
     public String searchByFirstName(String tableName, String firstName) {
         String query = "SELECT * FROM " + tableName + " WHERE NAME LIKE '%" + firstName + "%' ORDER BY reg_no ASC";
+        return query;
+    }
+
+    @Override
+    public String searchByAgeLessThan(String tableName, int age) {
+        String query = "SELECT * FROM " + tableName + " WHERE age <=" + age;
+        return query;
+    }
+
+    @Override
+    public String searchByAgeGreaterThan(String tableName, int age) {
+        String query = "SELECT * FROM " + tableName + " WHERE age >=" + age;
         return query;
     }
 
@@ -67,6 +85,12 @@ class Operations_implementation implements Operations {
     @Override
     public String countVaccinated(String tableName) {
         String query = "SELECT COUNT(*) FROM " + tableName + " WHERE vaccinated = true";
+        return query;
+    }
+
+    @Override
+    public String statisticsOfSeverity(String tableName) {
+        String query = "SELECT SEVERITY,COUNT(*),AVG(AGE) FROM " + tableName + " GROUP BY SEVERITY";
         return query;
     }
 

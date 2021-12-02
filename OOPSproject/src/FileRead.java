@@ -6,14 +6,16 @@ import java.util.*;
 class Table{
     private int id;
     private String name;
+    private int age;
     private String severity;
     private boolean recovered;
     private boolean vaccinated;
 
     //Table Constructor
-    public Table(int id,String name,String severity,boolean recovered,boolean vaccinated){
+    public Table(int id,String name,int age,String severity,boolean recovered,boolean vaccinated){
         this.id=id;
         this.name=name;
+        this.age=age;
         this.severity=severity;
         this.recovered=recovered;
         this.vaccinated=vaccinated;
@@ -22,6 +24,7 @@ class Table{
     //Utility get functions
     public int getId(){return id;}
     public String getName(){return name;}
+    public int getAge(){return age;}
     public String getSeverity(){return severity;}
     public boolean getRecovered(){return recovered;}
     public boolean getVaccinated(){return vaccinated;}
@@ -29,7 +32,7 @@ class Table{
     //toString() utility function
     @Override
     public String toString(){
-        String str=getId()+","+getName()+","+getSeverity()+","+this.getRecovered()+","+this.getVaccinated();
+        String str=getId()+","+getName()+","+getAge()+","+getSeverity()+","+this.getRecovered()+","+this.getVaccinated();
         return str;
     }
 
@@ -45,7 +48,7 @@ class Table{
             Scanner sin=new Scanner(new BufferedReader(new FileReader(filePath)));
             while(sin.hasNext()){
                 String[] tokens=sin.nextLine().split(",");
-                t.add(new Table(Integer.parseInt(tokens[0]),tokens[1],tokens[2],Boolean.parseBoolean(tokens[3]),Boolean.parseBoolean(tokens[4])));
+                t.add(new Table(Integer.parseInt(tokens[0]),tokens[1],Integer.parseInt(tokens[2]),tokens[3],Boolean.parseBoolean(tokens[4]),Boolean.parseBoolean(tokens[5])));
             }
             sin.close();
         }
