@@ -13,6 +13,10 @@ interface Operations {
 
     public String searchByVaccination(String tableName, Boolean vaccinated);
 
+    public String countRecovered(String tableName);
+
+    public String countVaccinated(String tableName);
+
     public String deleteById(String tableName, int id);
 }
 
@@ -32,7 +36,7 @@ class Operations_implementation implements Operations {
 
     @Override
     public String searchByFirstName(String tableName, String firstName) {
-        String query = "SELECT * FROM " + tableName + " WHERE NAME LIKE \"" + firstName + "\" ORDER BY reg_no ASC";
+        String query = "SELECT * FROM " + tableName + " WHERE NAME LIKE '%" + firstName + "%' ORDER BY reg_no ASC";
         return query;
     }
 
@@ -53,6 +57,19 @@ class Operations_implementation implements Operations {
         String query = "SELECT * FROM " + tableName + " WHERE vaccinated =" + vaccinated + " ORDER BY reg_no ASC";
         return query;
     }
+
+    @Override
+    public String countRecovered(String tableName) {
+        String query = "SELECT COUNT(*) FROM " + tableName + " WHERE recovered = true";
+        return query;
+    }
+
+    @Override
+    public String countVaccinated(String tableName) {
+        String query = "SELECT COUNT(*) FROM " + tableName + " WHERE vaccinated = true";
+        return query;
+    }
+
 
     // for deleting part
     @Override

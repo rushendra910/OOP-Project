@@ -37,6 +37,8 @@ public class Main {
                     System.out.println("-ss <severity(weak/mild/strong)>: search by severity");
                     System.out.println("-sr <recovered(true/false)>: search by recovery status");
                     System.out.println("-sv <vaccinated(true/false)>: search by vaccination status");
+                    System.out.println("-cr : count of recovered patients");
+                    System.out.println("-cv : count of vaccinated patients");
                     System.out.println(" -q: quit");
                     break;
                 }
@@ -141,6 +143,24 @@ public class Main {
                     pagination(rs);
                     rs.close();
                     con.close();
+                    break;
+                }
+
+                // COUNT OF RECOVERED PATIENTS
+                case "-cr": {
+                    ResultSet rs = stmt.executeQuery(op1.countRecovered(table_name));
+                    rs.next();
+                    System.out.println("Count of recovered patients: " + rs.getString(1));
+                    rs.close();
+                    break;
+                }
+
+                // COUNT OF VACCINATED PATIENTS
+                case "-cv": {
+                    ResultSet rs = stmt.executeQuery(op1.countVaccinated(table_name));
+                    rs.next();
+                    System.out.println("Count of vaccinated patients: " + rs.getInt(1));
+                    rs.close();
                     break;
                 }
 
