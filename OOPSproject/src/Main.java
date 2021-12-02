@@ -37,8 +37,7 @@ public class Main {
                     System.out.println("-ss <severity(weak/mild/strong)>: search by severity");
                     System.out.println("-sr <recovered(true/false)>: search by recovery status");
                     System.out.println("-sv <vaccinated(true/false)>: search by vaccination status");
-                    System.out.println("-cr : count of recovered patients");
-                    System.out.println("-cv : count of vaccinated patients");
+                    System.out.println("-d <id>: Delete by ID");
                     System.out.println(" -q: quit");
                     break;
                 }
@@ -145,25 +144,18 @@ public class Main {
                     con.close();
                     break;
                 }
-
-                // COUNT OF RECOVERED PATIENTS
-                case "-cr": {
-                    ResultSet rs = stmt.executeQuery(op1.countRecovered(table_name));
-                    rs.next();
-                    System.out.println("Count of recovered patients: " + rs.getString(1));
-                    rs.close();
-                    break;
-                }
-
-                // COUNT OF VACCINATED PATIENTS
-                case "-cv": {
-                    ResultSet rs = stmt.executeQuery(op1.countVaccinated(table_name));
-                    rs.next();
-                    System.out.println("Count of vaccinated patients: " + rs.getInt(1));
-                    rs.close();
-                    break;
-                }
-
+                 //Delete by Id
+                 case "-d": {
+                 int id = Integer.parseInt(args[1]);
+                 ResultSet rs = stmt.executeQuery(op1.deleteById("tableName", id));
+                 pagination(rs);
+                 if (id > 0) {
+                 System.out.println(" The Id is deleted successfully!");
+                 rs.close();
+                 con.close();
+                 break;
+                    }
+                 }
                 // EXIT
                 case "-q": {
                     break;
