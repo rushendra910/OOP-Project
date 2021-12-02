@@ -94,15 +94,10 @@ class Operations_implementation implements Operations {
         return query;
     }
 
-
     // for deleting part
     @Override
     public String deleteById(String tableName, int id) {
-        String query = "DELETE * FROM " + tableName + "WHERE ID =" + id;
-        if (id > 0)
-            System.out.println("One User is Successfully Deleted");
-        else
-            System.out.println("ERROR OCCURED :(");
+        String query = "DELETE FROM " + tableName + "WHERE reg_no =" + id;
         return query;
     }
 }

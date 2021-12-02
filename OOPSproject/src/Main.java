@@ -33,19 +33,22 @@ public class Main {
                     System.out.println(" -c: create table ");
                     System.out.println(" -p: print all the columns");
                     System.out.println(" -i <input_file path> : insert data into the columns from csv");
-                    System.out.println("-si <reg_no>: search by reg_no");
-                    System.out.println("-sf <name>: search by first name");
-                    System.out.println("-sal <age>: search for patients with age less than of equal to the given age");
-                    System.out.println("-sag <age>: search for patients with age greater than of equal to the given age");
-                    System.out.println("-ss <severity(low/mild/severe)>: search by severity");
-                    System.out.println("-sr <recovered(true/false)>: search by recovery status");
-                    System.out.println("-sv <vaccinated(true/false)>: search by vaccination status");
-                    System.out.println("-cr : count of recovered patients");
-                    System.out.println("-cv : count of vaccinated patients");
-                    System.out.println("-statsev : statistics of severity");
-                    System.out.println("-statage : statistics of age");
-                    System.out.println("-classage : classification by age");
-                    System.out.println("-v : Version");
+                    System.out.println(" -si <reg_no>: search by reg_no");
+                    System.out.println(" -sf <name>: search by first name");
+                    System.out.println(" -sal <age>: search for patients with age less than of equal to the given age");
+                    System.out
+                            .println(
+                                    " -sag <age>: search for patients with age greater than of equal to the given age");
+                    System.out.println(" -ss <severity(low/mild/severe)>: search by severity");
+                    System.out.println(" -sr <recovered(true/false)>: search by recovery status");
+                    System.out.println(" -sv <vaccinated(true/false)>: search by vaccination status");
+                    System.out.println(" -cr : count of recovered patients");
+                    System.out.println(" -cv : count of vaccinated patients");
+                    System.out.println(" -statsev : statistics of severity");
+                    System.out.println(" -statage : statistics of age");
+                    System.out.println(" -classage : classification by age");
+                    System.out.println(" -v : Version");
+                    System.out.println(" -d <id>: Delete by ID");
                     System.out.println(" -q: quit");
                     break;
                 }
@@ -200,7 +203,7 @@ public class Main {
                     ResultSet rs = stmt.executeQuery(op1.statisticsOfSeverity(table_name));
                     System.out.println("\nSEVERITY   COUNT   MEAN AGE\n");
                     while (rs.next()) {
-                        System.out.printf("%-10s %-7s %-5f\n", rs.getString(1), rs.getInt(2),rs.getFloat(3));
+                        System.out.printf("%-10s %-7s %-5f\n", rs.getString(1), rs.getInt(2), rs.getFloat(3));
                     }
                     rs.close();
                     break;
@@ -238,13 +241,14 @@ public class Main {
                 }
 
                 // EXTRA STATISTICS OF AGE
-                case "-statage":{
+                case "-statage": {
                     System.out.println("OVERALL STATS");
                     ResultSet rs = stmt.executeQuery("SELECT AVG(age) FROM PATIENTS;");
                     System.out.println("\nCOLUMN \t    VALUE\n");
                     rs.next();
                     System.out.printf("%-10s  %-5f\n", "MEAN", rs.getFloat(1));
-                    rs = stmt.executeQuery("SELECT age,COUNT(age) FROM PATIENTS GROUP BY AGE ORDER BY COUNT(AGE) DESC LIMIT 1;");
+                    rs = stmt.executeQuery(
+                            "SELECT age,COUNT(age) FROM PATIENTS GROUP BY AGE ORDER BY COUNT(AGE) DESC LIMIT 1;");
                     rs.next();
                     System.out.printf("%-10s  %-5f\n", "MODE", rs.getFloat(1));
                     rs = stmt.executeQuery("SELECT stddev(age) FROM PATIENTS;");
@@ -256,19 +260,21 @@ public class Main {
                     System.out.println("\nCOLUMN \t    VALUE\n");
                     rs.next();
                     System.out.printf("%-10s  %-5f\n", "MEAN", rs.getFloat(1));
-                    rs = stmt.executeQuery("SELECT age,COUNT(age) FROM PATIENTS WHERE VACCINATED=true GROUP BY AGE ORDER BY COUNT(AGE) DESC LIMIT 1;");
+                    rs = stmt.executeQuery(
+                            "SELECT age,COUNT(age) FROM PATIENTS WHERE VACCINATED=true GROUP BY AGE ORDER BY COUNT(AGE) DESC LIMIT 1;");
                     rs.next();
                     System.out.printf("%-10s  %-5f\n", "MODE", rs.getFloat(1));
                     rs = stmt.executeQuery("SELECT stddev(age) FROM PATIENTS WHERE VACCINATED=true;");
                     rs.next();
                     System.out.printf("%-10s  %-5f\n", "STD DEV", rs.getFloat(1));
-                    
+
                     System.out.println("\n\nSTATS OF RECOVERED PATIENTS");
                     rs = stmt.executeQuery("SELECT AVG(age) FROM PATIENTS WHERE RECOVERED=true;");
                     System.out.println("\nCOLUMN \t    VALUE\n");
                     rs.next();
                     System.out.printf("%-10s  %-5f\n", "MEAN", rs.getFloat(1));
-                    rs = stmt.executeQuery("SELECT age,COUNT(age) FROM PATIENTS WHERE RECOVERED=true GROUP BY AGE ORDER BY COUNT(AGE) DESC LIMIT 1;");
+                    rs = stmt.executeQuery(
+                            "SELECT age,COUNT(age) FROM PATIENTS WHERE RECOVERED=true GROUP BY AGE ORDER BY COUNT(AGE) DESC LIMIT 1;");
                     rs.next();
                     System.out.printf("%-10s  %-5f\n", "MODE", rs.getFloat(1));
                     rs = stmt.executeQuery("SELECT stddev(age) FROM PATIENTS WHERE RECOVERED=true;");
@@ -278,9 +284,33 @@ public class Main {
                 }
 
                 // VERSION
-                case "-v":
-                {
+                case "-v": {
                     System.out.println("\nVersion: " + version);
+                    break;
+                }
+                // Delete by Id
+                case "-d": {
+                    int id = Integer.parseInt(args[1]);
+                    ResultSet rs= stmt.executeQuery(op1.searchById(table_name, id));
+                    rs.next();
+                    if(rs.getRow()==0) {
+                        System.out.println("\nNo such patient with id " + id);
+                    }
+                    else {
+                        Scanner sc = new Scanner(System.in);
+                        System.out.println("\nAre you sure you want to delete this patient? (y/n)");
+                        String ans = sc.nextLine();
+                        if(ans.equals("y")) {
+                            rs.deleteRow();
+                            System.out.println("\nPatient with id " + id + " deleted");
+                        }
+                        else {
+                            System.out.println("\nPatient with id " + id + " not deleted");
+                        }
+                        sc.close();
+                    }
+                    rs.close();
+                    con.close();
                     break;
                 }
                 // EXIT
@@ -295,7 +325,9 @@ public class Main {
 
             }
             con.close();
-        } catch (Exception e) {
+        } catch (
+
+        Exception e) {
             System.out.println(e);
         }
     }
