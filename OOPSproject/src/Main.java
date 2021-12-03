@@ -15,6 +15,8 @@ public class Main {
 
         try {
 
+            /******************** TO CHANGE THE USERNAME AND PASSWORD sqlConnect ***********************/
+
             Connection con = sqlConnect.getCon();
             Statement stmt = sqlConnect.getStatement();
 
@@ -177,6 +179,12 @@ public class Main {
                     int id = Integer.parseInt(args[1]);
 
                     crud.delete(id);
+                    break;
+                }
+
+                // Delete complete data
+                case "-dall": {
+                    crud.deleteAll();
                     break;
                 }
 

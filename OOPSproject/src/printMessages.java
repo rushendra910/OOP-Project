@@ -27,6 +27,7 @@ public class printMessages {
         System.out.println(" -classage : classification by age");
         System.out.println(" -v : Version");
         System.out.println(" -d <id>: Delete by ID");
+        System.out.println(" -dall : Delete all");
         System.out.println(" -q: quit");
     }
 
@@ -90,6 +91,17 @@ public class printMessages {
         rs = stmt.executeQuery("SELECT stddev(age) FROM PATIENTS WHERE VACCINATED=true;");
         rs.next();
         System.out.printf("%-10s  %-5f\n", "STD DEV", rs.getFloat(1));
+        System.out.println("\n\nSTATS OF NON-VACCINATED PATIENTS");
+        rs = stmt.executeQuery("SELECT AVG(age) FROM PATIENTS WHERE VACCINATED=false;");
+        System.out.println("\nCOLUMN \t    VALUE\n");
+        rs.next();
+        System.out.printf("%-10s  %-5f\n", "MEAN", rs.getFloat(1));
+        rs = stmt.executeQuery("SELECT age,COUNT(age) FROM PATIENTS WHERE VACCINATED=false GROUP BY AGE ORDER BY COUNT(AGE) DESC LIMIT 1;");
+        rs.next();
+        System.out.printf("%-10s  %-5f\n", "MODE", rs.getFloat(1));
+        rs = stmt.executeQuery("SELECT stddev(age) FROM PATIENTS WHERE VACCINATED=false;");
+        rs.next();
+        System.out.printf("%-10s  %-5f\n", "STD DEV", rs.getFloat(1));
         System.out.println("\n\nSTATS OF RECOVERED PATIENTS");
         rs = stmt.executeQuery("SELECT AVG(age) FROM PATIENTS WHERE RECOVERED=true;");
         System.out.println("\nCOLUMN \t    VALUE\n");
@@ -99,6 +111,17 @@ public class printMessages {
         rs.next();
         System.out.printf("%-10s  %-5f\n", "MODE", rs.getFloat(1));
         rs = stmt.executeQuery("SELECT stddev(age) FROM PATIENTS WHERE RECOVERED=true;");
+        rs.next();
+        System.out.printf("%-10s  %-5f\n", "STD DEV", rs.getFloat(1));
+        System.out.println("\n\nSTATS OF NON-RECOVERED PATIENTS");
+        rs = stmt.executeQuery("SELECT AVG(age) FROM PATIENTS WHERE RECOVERED=false;");
+        System.out.println("\nCOLUMN \t    VALUE\n");
+        rs.next();
+        System.out.printf("%-10s  %-5f\n", "MEAN", rs.getFloat(1));
+        rs = stmt.executeQuery("SELECT age,COUNT(age) FROM PATIENTS WHERE RECOVERED=false GROUP BY AGE ORDER BY COUNT(AGE) DESC LIMIT 1;");
+        rs.next();
+        System.out.printf("%-10s  %-5f\n", "MODE", rs.getFloat(1));
+        rs = stmt.executeQuery("SELECT stddev(age) FROM PATIENTS WHERE RECOVERED=false;");
         rs.next();
         System.out.printf("%-10s  %-5f\n", "STD DEV", rs.getFloat(1));
     }
