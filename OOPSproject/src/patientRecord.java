@@ -3,7 +3,7 @@ package OOPSproject.src;
 import java.io.*;
 import java.util.*;
 
-class Table{
+public class patientRecord{
     private int id;
     private String name;
     private int age;
@@ -12,7 +12,7 @@ class Table{
     private boolean vaccinated;
 
     //Table Constructor
-    public Table(int id,String name,int age,String severity,boolean recovered,boolean vaccinated){
+    public patientRecord(int id,String name,int age,String severity,boolean recovered,boolean vaccinated){
         this.id=id;
         this.name=name;
         this.age=age;
@@ -42,14 +42,15 @@ class Table{
     }
 
     //Method to convert any CSV file to a Table array
-    public static List<Table> CSVToTable(String filePath){
-        List<Table> t=new ArrayList<>();
+    public static List<patientRecord> CSVToTable(String filePath){
+        List<patientRecord> t=new ArrayList<>();
         try{
             Scanner sin=new Scanner(new BufferedReader(new FileReader(filePath)));
             while(sin.hasNext()){
                 String[] tokens=sin.nextLine().split(",");
-                t.add(new Table(Integer.parseInt(tokens[0]),tokens[1],Integer.parseInt(tokens[2]),tokens[3],Boolean.parseBoolean(tokens[4]),Boolean.parseBoolean(tokens[5])));
+                t.add(new patientRecord(Integer.parseInt(tokens[0]),tokens[1],Integer.parseInt(tokens[2]),tokens[3],Boolean.parseBoolean(tokens[4]),Boolean.parseBoolean(tokens[5])));
             }
+            
             sin.close();
         }
         catch(IOException e){

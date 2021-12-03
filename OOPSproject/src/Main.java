@@ -17,7 +17,9 @@ public class Main {
     }
 
     public static void main(String[] args) {
+
         Operations_implementation op1 = new Operations_implementation();
+        
         try {
             Connection con = DriverManager.getConnection(DB_URL, USER, PASS); // connection
             Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE); // statement
@@ -93,9 +95,8 @@ public class Main {
 
                 // INSERT DATA INTO THE TABLE FROM CSV FILE
                 case "-i": {
-                    List<Table> t = Table
-                            .CSVToTable(args[1]); // args[1] is the path of the csv file
-                    ListIterator<Table> i = t.listIterator();
+                    List<patientRecord> t = patientRecord.CSVToTable(args[1]); // args[1] is the path of the csv file
+                    ListIterator<patientRecord> i = t.listIterator();
                     Statement st = con.createStatement();
                     while (i.hasNext()) {
                         String[] tokens = i.next().getValues();
@@ -382,5 +383,4 @@ public class Main {
             System.out.println(e);
         }
     }
-
 }

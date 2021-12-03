@@ -22,9 +22,9 @@ public class update {
 
         ///////////////////////////////////////////////
 
-        List<Table> t=Table.CSVToTable("src/input_rushendra.csv");
+        List<patientRecord> t=patientRecord.CSVToTable("src/input_rushendra.csv");
 
-        ListIterator<Table> i=t.listIterator();
+        ListIterator<patientRecord> i=t.listIterator();
 
         while(i.hasNext()){
 
