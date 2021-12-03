@@ -204,8 +204,7 @@ public class Main {
 
             rs.last();
             int total_records = rs.getRow();
-            rs.first();
-            rs.previous();
+            rs.beforeFirst();   
 
             int total_pages = total_records / 5;
             if (total_records % 5 != 0)
@@ -224,6 +223,8 @@ public class Main {
                                 rs.getBoolean(5), rs.getBoolean(6));
                         i++;
                     }
+                    System.out.println("press \"+\" for next page");
+                    System.out.println("press \"-\" for previous page");
                     System.out.println("Page " + page_no);
                     String inp = System.console().readLine();
 
@@ -233,15 +234,25 @@ public class Main {
                     }
 
                     else if (inp.equals("-")) {
-                        clr();
-                        page_no--;
-                        rs.absolute(rs.getRow() - 5);
+                        if(page_no>1){
+                            clr();
+                            page_no--;
+                            rs.absolute(page_no*5-5);
+                        }
+                        else{
+                            clr();
+                            System.out.println("You are on the first page");
+                            rs.absolute(rs.getRow()-5);
+                        }
+                        
                     }
-
                     else if (inp.equals("q"))
                         break;
-                    else
+                    else {
+                        clr();
                         System.out.println("Invalid input");
+                        rs.absolute(rs.getRow()-5);
+                    }
                 }
 
             }
