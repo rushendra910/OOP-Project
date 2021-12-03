@@ -15,6 +15,8 @@ public class Main {
 
         try {
 
+            /******************** TO CHANGE THE USERNAME AND PASSWORD sqlConnect ***********************/
+
             Connection con = sqlConnect.getCon();
             Statement stmt = sqlConnect.getStatement();
 
