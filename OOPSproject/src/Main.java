@@ -182,6 +182,12 @@ public class Main {
                     break;
                 }
 
+                // Delete complete data
+                case "-dall": {
+                    crud.deleteAll();
+                    break;
+                }
+
                 // EXIT
                 case "-q": {
                     break;
