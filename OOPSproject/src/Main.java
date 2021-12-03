@@ -214,12 +214,13 @@ public class Main {
                 total_pages++;
             int page_no = 1;
 
-            System.out.printf("REG_NO  NAME:%-8s AGE   SEVERITY RECOVERED VACCINATED \n", "");
             while (page_no <= total_pages) {
 
                 if (page_no >= 1) {
                     int i = 0;
                     while (i < 5 && rs.next()) {
+                        if(i==0)
+                            System.out.printf("REG_NO  NAME:%-8s AGE   SEVERITY RECOVERED VACCINATED \n", "");
                         System.out.printf("%-7s %-13s %-5s %-8s %-9s %-9s\n", rs.getInt(1), rs.getString(2),
                                 rs.getInt(3), rs.getString(4),
                                 rs.getBoolean(5), rs.getBoolean(6));
