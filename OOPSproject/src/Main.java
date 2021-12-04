@@ -233,6 +233,7 @@ public class Main {
                     }
                     System.out.println("press \"+\" for next page");
                     System.out.println("press \"-\" for previous page");
+                    System.out.println("press \"q\" to exit");
                     System.out.println("Page " + page_no);
                     String inp = System.console().readLine();
 
