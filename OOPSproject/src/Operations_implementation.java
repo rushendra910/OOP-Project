@@ -10,7 +10,7 @@ public class Operations_implementation implements Operations {
     // for search part
     @Override
     public String searchById(String tableName, int id) {
-        String query = "SELECT * FROM " + tableName + " WHERE reg_no = " + id;
+        String query = "SELECT * FROM " + tableName + " WHERE reg_no =" + id;
         return query;
     }
 
