@@ -33,7 +33,7 @@ public class crud {
                 e.printStackTrace();
             }
         }
-        System.out.println("Data inserted successfully");
+        System.out.println("\nData inserted successfully");
         try {
             st.close();
         }

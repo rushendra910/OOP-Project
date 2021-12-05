@@ -8,7 +8,7 @@ public class sqlConnect {
     static final String USER = "root"; // Database Username
 
     /********************** CHANGE PASSWORD **********************/
-    static final String PASS = "password"; // Database Password
+    static final String PASS = "rushendra0910"; // Database Password
 
     public static void clr() {
         System.out.print("\033[H\033[2J");

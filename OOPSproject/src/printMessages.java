@@ -8,7 +8,7 @@ public class printMessages {
     static Statement stmt = sqlConnect.getStatement();
     
     public static void help(){
-        System.out.println(" -h: help");
+        System.out.println("\n -h: help");
         //System.out.println(" -c: create table ");
         System.out.println(" -p: print all the columns");
         System.out.println(" -i <input_file path> : insert data into the columns from csv");
@@ -33,7 +33,7 @@ public class printMessages {
 
     public static void Table(String query) throws SQLException{
         ResultSet rs = stmt.executeQuery(query);
-        CovidDataTracker.pagination(rs);
+        CovidPatientManagementSystem.pagination(rs);
         rs.close();
         con.close();
     }
@@ -69,7 +69,7 @@ public class printMessages {
     }
 
     public static void extraAgeStatistics() throws SQLException{
-        System.out.println("OVERALL STATS");
+        System.out.println("\n\nOVERALL STATS");
         ResultSet rs = stmt.executeQuery("SELECT AVG(age) FROM PATIENTS;");
         System.out.println("\nCOLUMN \t    VALUE\n");
         rs.next();
