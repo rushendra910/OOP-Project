@@ -2,7 +2,7 @@ package OOPSproject.src;
 
 import java.sql.*;
 
-public class Main {
+public class CovidDataTracker {
 
     public static void clr() {
         System.out.print("\033[H\033[2J");
