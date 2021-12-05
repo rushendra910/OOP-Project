@@ -60,7 +60,7 @@ public class Main {
                 case "-si": {
                     int id = Integer.parseInt(args[1]);
                     ResultSet rs = stmt.executeQuery(op1.searchById(table_name, id));
-                    pagination(rs);
+                    // pagination(rs);
                     rs.close();
                     con.close();
                     break;
