@@ -1,4 +1,4 @@
-# OOP-MiniProject
+# OOP-MiniProject (Covid Patient Management System)
 
 * Group Number: 35
 
