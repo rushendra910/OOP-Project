@@ -33,7 +33,7 @@ public class printMessages {
 
     public static void Table(String query) throws SQLException{
         ResultSet rs = stmt.executeQuery(query);
-        Main.pagination(rs);
+        CovidDataTracker.pagination(rs);
         rs.close();
         con.close();
     }
